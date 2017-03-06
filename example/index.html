@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+  <input type="text" id="txtImgUrl" value="https://www.w3schools.com/html/w3schools.jpg" />
+  <button id="btnSubmit">Submit</button>
+  <script>
+  (function(d, p) {
+    var $txtImgUrl = d.getElementById('txtImgUrl');
+    var $btnSubmit = d.getElementById('btnSubmit');
+
+    $btnSubmit.onclick = function() {
+      p.img($txtImgUrl.value)
+      .then(function(t) {
+        console.log('[imgping] img->success:', t);
+      })
+      .catch(function(t) {
+        console.log('[imgping] img->fail:', t);
+      });
+    };
+
+    var imgList = [
+      'https://www.w3schools.com/html/w3schools.jpg',
+      'http://placehold.it/1x1',
+      'http://dead.img/test.png'
+    ];
+
+    p.imgs(imgList)
+    .then(function(response) {
+      console.log('[imgping] imgs:', response);
+    });
+
+    p.race(imgList)
+    .then(function(response) {
+      console.log('[imgping] race->success:', response);
+    })
+    .catch(function(response) {
+      console.log('[imgping] race->fail:', response);
+    });
+  })(document, ping);
+  </script>
+</body>
+</html>
