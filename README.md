@@ -19,7 +19,7 @@ yarn install
 
 ### timeout (default=3000)
 
-Image responses waiting time (millisecond)
+Maximum time (ms) to wait for a image to response
 
 ```js
 ping.timeout = 1000
@@ -33,7 +33,7 @@ ping.timeout = 1000
 
 ### img(src)
 
-Get a single image response time
+Get response time (ms) for a single image
 
 ```js
 ping.img('http://my.image/link.jpg')
@@ -61,7 +61,7 @@ ping.img('http://my.image/link.jpg')
 
 ### imgs(list)
 
-Get a batch of images response time
+Get response time (ms) for a batch of images
 
 ```js
 ping.imgs(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
