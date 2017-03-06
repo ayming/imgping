@@ -175,6 +175,12 @@ npm run build
 
 ## Changelog
 
+1.0.1
+-----
+
+### Fixes
+* update build config
+
 1.0.0
 -----
 

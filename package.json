@@ -1,8 +1,8 @@
 {
   "name": "imgping",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ping utility for testing the reachability of a host.",
-  "main": "index.js",
+  "main": "dist/imgping.js",
   "repository": "https://github.com/ayming/imgping.git",
   "keywords": [
     "ping",
@@ -17,7 +17,8 @@
     "start": "better-npm-run dev",
     "clean": "rimraf dist",
     "lint": "eslint src",
-    "build": "webpack"
+    "build": "webpack",
+    "prepublish": "npm run lint && npm run build"
   },
   "betterScripts": {
     "dev": {
