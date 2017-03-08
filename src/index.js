@@ -35,12 +35,24 @@ class ImgPing {
   _pingPromise(imageSrc) {
     return new Promise((resolve, reject) => {
       const start = new Date().getTime()
-      const diff = () => new Date().getTime() - start
+      const response = () => {
+        const location = this._getLocation(imageSrc)
+        return {
+          imageSrc,
+          protocol: location.protocol,
+          hash: location.hash,
+          host: location.host,
+          hostname: location.hostname,
+          pathname: location.pathname,
+          port: location.port,
+          responseTime: new Date().getTime() - start
+        }
+      }
 
-      const timer = setTimeout(() => reject(diff()), this._timeout)
+      const timer = setTimeout(() => reject(response()), this._timeout)
       const complete = (cb) => {
-        cb(diff())
         clearTimeout(timer)
+        cb(response())
       }
 
       const image = new Image()
@@ -52,24 +64,13 @@ class ImgPing {
 
   _pingFinally(imageSrc) {
     return new Promise((resolve) => {
-      const location = this._getLocation(imageSrc)
-      const common = {
-        imageSrc,
-        protocol: location.protocol,
-        hash: location.hash,
-        host: location.host,
-        hostname: location.hostname,
-        pathname: location.pathname,
-        port: location.port
-      }
       this._pingPromise(imageSrc)
-      .then((responseTime) => resolve({
-        ...common,
-        responseTime,
+      .then((response) => resolve({
+        ...response,
         success: true
       }))
-      .catch(() => resolve({
-        ...common,
+      .catch((response) => console.log(response) && resolve({
+        ...response,
         responseTime: this._timeout,
         success: false
       }))
@@ -82,7 +83,7 @@ class ImgPing {
    * @return {Promise}
    */
   img(src) {
-    return this._pingFinally(src)
+    return this._pingPromise(src)
   }
 
   /**
