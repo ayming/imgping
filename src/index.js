@@ -14,6 +14,15 @@ class ImgPing {
   }
 
   /**
+   * http://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript
+   */
+  _getLocation(href) {
+    const l = document.createElement('a')
+    l.href = href
+    return l
+  }
+
+  /**
    * https://stereochro.me/ideas/detecting-broken-images-js
    */
   _isImageOk(image) {
@@ -43,14 +52,24 @@ class ImgPing {
 
   _pingFinally(imageSrc) {
     return new Promise((resolve) => {
+      const location = this._getLocation(imageSrc)
+      const common = {
+        imageSrc,
+        protocol: location.protocol,
+        hash: location.hash,
+        host: location.host,
+        hostname: location.hostname,
+        pathname: location.pathname,
+        port: location.port
+      }
       this._pingPromise(imageSrc)
       .then((responseTime) => resolve({
-        imageSrc,
+        ...common,
         responseTime,
         success: true
       }))
       .catch(() => resolve({
-        imageSrc,
+        ...common,
         responseTime: this._timeout,
         success: false
       }))
@@ -63,7 +82,7 @@ class ImgPing {
    * @return {Promise}
    */
   img(src) {
-    return this._pingPromise(src)
+    return this._pingFinally(src)
   }
 
   /**
