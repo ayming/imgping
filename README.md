@@ -264,6 +264,12 @@ npm run build
 
 ## Changelog
 
+1.1.1
+-----
+
+### Fixes
+* remove console log
+
 1.1.0
 -----
 

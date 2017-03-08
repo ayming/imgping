@@ -1,6 +1,6 @@
 {
   "name": "imgping",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Ping utility for testing the reachability of a host.",
   "main": "dist/imgping.js",
   "repository": "https://github.com/ayming/imgping.git",
