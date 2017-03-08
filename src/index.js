@@ -69,7 +69,7 @@ class ImgPing {
         ...response,
         success: true
       }))
-      .catch((response) => console.log(response) && resolve({
+      .catch((response) => resolve({
         ...response,
         responseTime: this._timeout,
         success: false
