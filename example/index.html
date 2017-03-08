@@ -11,11 +11,11 @@
 
     $btnSubmit.onclick = function() {
       p.img($txtImgUrl.value)
-      .then(function(t) {
-        console.log('[imgping] img->success:', t);
+      .then(function(response) {
+        console.log('[imgping] img->success:', response.responseTime);
       })
-      .catch(function(t) {
-        console.log('[imgping] img->fail:', t);
+      .catch(function(response) {
+        console.log('[imgping] img->fail:', response.responseTime);
       });
     };
 
