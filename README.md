@@ -31,31 +31,84 @@ ping.timeout = 1000
 
 ## API
 
+Please choose image by the following condition:
+* as small as possible
+* valid image source
+* same image to `race`
+
 ### img(src)
 
 Get response time (ms) for a single image
 
 ```js
 ping.img('http://my.image/link.jpg')
-.then(function(responseTime) {
-  // success response time
-  console.log(responseTime) // 100
+.then(function(result) {
+  // success
+  console.log(result);
+  /**
+   * {
+   *   hash: ''
+   *   host: 'my.image'
+   *   hostname: 'my.image'
+   *   imageSrc: 'http://my.image/link.jpg'
+   *   pathname: '/link.jpg'
+   *   port: ''
+   *   protocol: 'http:'
+   *   responseTime: 100
+   * }
+   */
 })
-.catch(function(responseTime) {
-  // failure response time
-  console.log(responseTime) // 3000
+.catch(function(result) {
+  // failure
+  console.log(result);
+  /**
+   * {
+   *   hash: ''
+   *   host: 'my.image'
+   *   hostname: 'my.image'
+   *   imageSrc: 'http://my.image/link.jpg'
+   *   pathname: '/link.jpg'
+   *   port: ''
+   *   protocol: 'http:'
+   *   responseTime: 3000
+   * }
+   */
 });
 
 // es6
 import ping from 'imgping'
 ping.img('http://my.image/link.jpg')
-.then((responseTime) => {
-  // success response time
-  console.log(responseTime) // 100
+.then((result) => {
+  // success
+  console.log(result)
+  /**
+   * {
+   *   hash: ''
+   *   host: 'my.image'
+   *   hostname: 'my.image'
+   *   imageSrc: 'http://my.image/link.jpg'
+   *   pathname: '/link.jpg'
+   *   port: ''
+   *   protocol: 'http:'
+   *   responseTime: 100
+   * }
+   */
 })
-.catch((responseTime) => {
-  // failure response time
-  console.log(responseTime) // 3000
+.catch((result) => {
+  // failure
+  console.log(result)
+  /**
+   * {
+   *   hash: ''
+   *   host: 'my.image'
+   *   hostname: 'my.image'
+   *   imageSrc: 'http://my.image/link.jpg'
+   *   pathname: '/link.jpg'
+   *   port: ''
+   *   protocol: 'http:'
+   *   responseTime: 3000
+   * }
+   */
 })
 ```
 
@@ -64,14 +117,20 @@ ping.img('http://my.image/link.jpg')
 Get response time (ms) for a batch of images
 
 ```js
-ping.imgs(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
+ping.imgs(['http://my.image.a/link.jpg', 'http://my.image.b/link.jpg'])
 .then(function(result) {
   // list of response time
   console.log(result);
   /**
    * [
    *   {
-   *     imageSrc: 'http://my.image/link1.jpg'
+   *     hash: ''
+   *     host: 'my.image.a'
+   *     hostname: 'my.image.a'
+   *     imageSrc: 'http://my.image.a/link.jpg'
+   *     pathname: '/link.jpg'
+   *     port: ''
+   *     protocol: 'http:'
    *     responseTime: 100
    *     success: true
    *   },
@@ -82,14 +141,20 @@ ping.imgs(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
 
 // es6
 import ping from 'imgping'
-ping.imgs(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
+ping.imgs(['http://my.image.a/link.jpg', 'http://my.image.b/link.jpg'])
 .then((result) => {
   // list of response time
   console.log(result)
   /**
    * [
    *   {
-   *     imageSrc: 'http://my.image/link1.jpg'
+   *     hash: ''
+   *     host: 'my.image.a'
+   *     hostname: 'my.image.a'
+   *     imageSrc: 'http://my.image.a/link.jpg'
+   *     pathname: '/link.jpg'
+   *     port: ''
+   *     protocol: 'http:'
    *     responseTime: 100
    *     success: true
    *   },
@@ -104,13 +169,19 @@ ping.imgs(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
 Resolve as soon as one of the images is loaded
 
 ```js
-ping.race(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
+ping.race(['http://my.image.a/link.jpg', 'http://my.image.b/link.jpg'])
 .then(function(result) {
   // fastest image result
   console.log(result);
   /**
    * {
-   *   imageSrc: 'http://my.image/link1.jpg'
+   *   hash: ''
+   *   host: 'my.image.a'
+   *   hostname: 'my.image.a'
+   *   imageSrc: 'http://my.image.a/link.jpg'
+   *   pathname: '/link.jpg'
+   *   port: ''
+   *   protocol: 'http:'
    *   responseTime: 100
    *   success: true
    * }
@@ -122,7 +193,13 @@ ping.race(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
   /**
    * [
    *   {
-   *     imageSrc: 'http://my.image/link1.jpg'
+   *     hash: ''
+   *     host: 'my.image.a'
+   *     hostname: 'my.image.a'
+   *     imageSrc: 'http://my.image.a/link.jpg'
+   *     pathname: '/link.jpg'
+   *     port: ''
+   *     protocol: 'http:'
    *     responseTime: 3000
    *     success: false
    *   },
@@ -133,13 +210,19 @@ ping.race(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
 
 // es6
 import ping from 'imgping'
-ping.race(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
+ping.race(['http://my.image.a/link.jpg', 'http://my.image.b/link.jpg'])
 .then((result) => {
   // response time
   console.log(result)
   /**
    * {
-   *   imageSrc: 'http://my.image/link1.jpg'
+   *   hash: ''
+   *   host: 'my.image.a'
+   *   hostname: 'my.image.a'
+   *   imageSrc: 'http://my.image.a/link.jpg'
+   *   pathname: '/link.jpg'
+   *   port: ''
+   *   protocol: 'http:'
    *   responseTime: 100
    *   success: true
    * }
@@ -151,7 +234,13 @@ ping.race(['http://my.image/link1.jpg', 'http://my.image/link2.jpg'])
   /**
    * [
    *   {
-   *     imageSrc: 'http://my.image/link1.jpg'
+   *     hash: ''
+   *     host: 'my.image.a'
+   *     hostname: 'my.image.a'
+   *     imageSrc: 'http://my.image.a/link.jpg'
+   *     pathname: '/link.jpg'
+   *     port: ''
+   *     protocol: 'http:'
    *     responseTime: 3000
    *     success: false
    *   },
@@ -174,6 +263,12 @@ npm run build
 ```
 
 ## Changelog
+
+1.1.0
+-----
+
+### Improvements
+* update api response
 
 1.0.1
 -----
